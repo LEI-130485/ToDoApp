@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <!-- Project from https://start.vaadin.com/8d4a68a9-c25d-4fb0-8c7d-faeb7202c67e -->
     <groupId>com.example</groupId>
     <artifactId>app</artifactId>
@@ -13,13 +16,14 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
-    
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.6</version>
         <relativePath/>
     </parent>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -31,17 +35,22 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
+        <!-- VAADIN Framework (interface gráfica web em Java) -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
         </dependency>
+
+        <!-- Integração entre Vaadin e Spring Boot -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- Base de dados H2 e JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -50,10 +59,26 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+
+        <!-- Dependências para testes -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ NOVA DEPENDÊNCIA 1: Biblioteca OkHttp (para aceder a APIs externas, como câmbios de moedas) -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
+        <!-- ✅ NOVA DEPENDÊNCIA 2: Biblioteca JSON (para processar respostas JSON das APIs) -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
         </dependency>
         <!-- Biblioteca para gerar e ler QR Codes -->
         <dependency>
@@ -69,7 +94,7 @@
 
 
     </dependencies>
-    
+
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
@@ -91,7 +116,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>production</id>
@@ -127,7 +152,7 @@
             </build>
         </profile>
     </profiles>
-    
+
     <repositories>
         <repository>
             <id>vaadin-directory</id>
@@ -138,6 +163,7 @@
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>vaadin-prereleases</id>
