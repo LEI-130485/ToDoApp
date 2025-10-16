@@ -84,3 +84,40 @@ The [Getting Started](https://vaadin.com/docs/latest/getting-started) guide will
 App implementation. You'll learn how to set up your development environment, understand the project 
 structure, and find resources to help you add muscles to your skeleton — transforming it into a fully-featured 
 application.
+
+## Continuous Integration (CI) – GitHub Actions
+
+This project uses a Continuous Integration pipeline (CI) configured with GitHub Actions, which automatically compiles the code, packages the application, and publishes the generated .jar file as a build artifact whenever changes are pushed to the main branch.
+The workflow is defined in .github/workflows/build.yml and performs the following steps:
+
+Sets up the Java 21 (Temurin) environment.
+Runs the Maven build (mvn clean package).
+Publishes the generated .jar file as an artifact.
+ 
+## Excerpt from build.yml
+name: Build Maven Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: mvn -B clean package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar
+
+## Workflow Results
+After each push to the main branch:
+The workflow runs automatically (visible under the Actions tab in GitHub).
+If the build succeeds, the .jar file is available for download in the Artifacts section of the workflow run.
